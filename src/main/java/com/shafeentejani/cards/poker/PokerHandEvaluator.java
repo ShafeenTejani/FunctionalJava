@@ -57,19 +57,19 @@ public class PokerHandEvaluator {
 	}
 	
 	
-	// helper methods
+	// HELPER  METHODS
 	
-    // Determines if a there are num cards with consecutive ranks - assumes input is sorted on ranks  
-	private static boolean hasConsecutiveRanks(final Card first, final FunctionalList<Card> remaining,final int num){
-		return (remaining.isEmpty() || num == 1) ?
-				(num == 1) :
+	// Determines if a there are n cards with consecutive ranks - assumes input is sorted on ranks  
+	private static boolean hasConsecutiveRanks(final Card first, final FunctionalList<Card> remaining,final int n){
+		return (remaining.isEmpty() || n == 1) ?
+				(n == 1) :
 					areConsecutive(first,remaining.head()) ?
-							hasConsecutiveRanks(remaining.head(),remaining.dropWhile(equalRanks(remaining.head())),num-1):
-								hasConsecutiveRanks(remaining.head(),remaining.dropWhile(equalRanks(remaining.head())),num);
+							hasConsecutiveRanks(remaining.head(),remaining.dropWhile(equalRanks(remaining.head())),n-1):
+								hasConsecutiveRanks(remaining.head(),remaining.dropWhile(equalRanks(remaining.head())),n);
 					
 	}
 	
-	private static boolean areConsecutive(Card card1, Card card2){
+	private static boolean areConsecutive(final Card card1,final Card card2){
 		return card1.rank().order() == (card2.rank().order() - 1);
 	}
 	
@@ -85,7 +85,7 @@ public class PokerHandEvaluator {
 	private static Function<Card,Rank> rank(){
 		return new Function<Card, Rank>() {
 			@Override
-			public Rank apply(Card input) {
+			public Rank apply(final Card input) {
 				return input.rank();
 			}
 		};
@@ -94,7 +94,7 @@ public class PokerHandEvaluator {
 	private static Function<Card,Suit> suit(){
 		return new Function<Card, Suit>() {
 			@Override
-			public Suit apply(Card input) {
+			public Suit apply(final Card input) {
 				return input.suit();
 			}
 		};
@@ -104,7 +104,7 @@ public class PokerHandEvaluator {
 	private static Function<Card,Boolean> rankLessThan(final Rank r){
 		return new Function<Card, Boolean>() {
 			@Override
-			public Boolean apply(Card input) {
+			public Boolean apply(final Card input) {
 				return input.rank().order() < r.order();
 			}
 		};
@@ -114,7 +114,7 @@ public class PokerHandEvaluator {
 		return new Function<Card, Boolean>() {
 
 			@Override
-			public Boolean apply(Card input) {
+			public Boolean apply(final Card input) {
 				return input.rank().equals(card.rank());
 			}
 		};
@@ -124,7 +124,7 @@ public class PokerHandEvaluator {
 		return new Function<FunctionalList<Card>, Boolean>() {
 			
 			@Override
-			public Boolean apply(FunctionalList<Card> input) {
+			public Boolean apply(final FunctionalList<Card> input) {
 				return function.apply(input.size());
 			}
 		};
@@ -134,7 +134,7 @@ public class PokerHandEvaluator {
 		return new Function<Integer, Boolean>() {
 
 			@Override
-			public Boolean apply(Integer input) {
+			public Boolean apply(final Integer input) {
 				return input >= size;
 			}
 		};
@@ -144,7 +144,7 @@ public class PokerHandEvaluator {
 		return new Function<V, Boolean>() {
 
 			@Override
-			public Boolean apply(V actual) {
+			public Boolean apply(final V actual) {
 				return expected.equals(actual);
 			}
 		};

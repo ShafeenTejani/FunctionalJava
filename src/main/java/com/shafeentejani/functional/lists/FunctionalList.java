@@ -40,17 +40,17 @@ public abstract class FunctionalList<T> {
                    : cons(mapping.apply(head()), tail().map(mapping));
     }
     
-    public <K> FunctionalMultiMap<K,T> groupBy(Function<T,K> groupingFunction){
+    public <K> FunctionalMultiMap<K,T> groupBy(final Function<T,K> groupingFunction){
 		return groupIntoMap(new FunctionalMultiMap<K, T>(),groupingFunction,this);
 	}
 	
-	private <K> FunctionalMultiMap<K,T> groupIntoMap(FunctionalMultiMap<K,T> map,Function<T,K> groupingFunction, FunctionalList<T> values){
+	private <K> FunctionalMultiMap<K,T> groupIntoMap(final FunctionalMultiMap<K,T> map,final Function<T,K> groupingFunction, FunctionalList<T> values){
 		return values.isEmpty() ?
 				map :
 					groupIntoMap(map.put(groupingFunction.apply(values.head()),values.head()),groupingFunction,values.tail());
 	}
 
-	public FunctionalList<T> dropWhile(Function<T, Boolean> condition){
+	public FunctionalList<T> dropWhile(final Function<T, Boolean> condition){
 		  
     	return isEmpty() ?
     			this:
@@ -64,7 +64,7 @@ public abstract class FunctionalList<T> {
 		return isEmpty() ? 0 : 1 + tail().size();
 	}
 	
-	public T firstMatch(Function<T,Boolean> matcher){
+	public T firstMatch(final Function<T,Boolean> matcher){
 		return isEmpty() ?
 				null :
 					matcher.apply(head()) ?
@@ -112,7 +112,7 @@ public abstract class FunctionalList<T> {
 		
 	}
 	
-    private int hashCodeHelper(int start) {
+    private int hashCodeHelper(final int start) {
 		return isEmpty() ? 
 				start:
 					tail().hashCodeHelper(31*start + head().hashCode());

@@ -20,7 +20,7 @@ public class Card {
 		this.suit = Suit.fromChar(suit);
 	}
 	
-	public static Card fromString(String s){
+	public static Card fromString(final String s){
 		return new Card(s.charAt(0), s.charAt(1));
 	}
 	
@@ -38,13 +38,13 @@ public class Card {
 	}
 	
 	@Override
-	public boolean equals(Object o){
+	public boolean equals(final Object o){
 		return (o != null && o instanceof Card) ?
 				((Card)o).suit.equals(suit) && ((Card)o).rank.equals(rank) :
 					false;
 	}
 	
-	private static <V> V replaceNullWith(V nullable, V replacement) {
+	private static <V> V replaceNullWith(final V nullable,final V replacement) {
 		return nullable == null ? replacement : nullable;
 	}
 	
@@ -71,7 +71,7 @@ public class Card {
 		private static Function<Suit,Boolean> matchesRep(final char c){
 			return new Function<Suit, Boolean>() {
 				@Override
-				public Boolean apply(Suit input) {
+				public Boolean apply(final Suit input) {
 					return input.rep == c;
 				}
 			};
@@ -115,7 +115,7 @@ public class Card {
 		private static Function<Rank,Boolean> matchesRep(final char c){
 			return new Function<Rank, Boolean>() {
 				@Override
-				public Boolean apply(Rank input) {
+				public Boolean apply(final Rank input) {
 					return input.rep == c;
 				}
 			};

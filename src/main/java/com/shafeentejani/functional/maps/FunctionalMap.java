@@ -6,17 +6,17 @@ import com.shafeentejani.functional.lists.FunctionalList;
 
 public class FunctionalMap<K,V> {
 
-	private FunctionalList<Entry<K,V>> entries = FunctionalList.nil();
+	private final FunctionalList<Entry<K,V>> entries;
 	
 	public FunctionalMap(){
 		entries = FunctionalList.nil();
 	}
 	
-	private FunctionalMap(FunctionalList<Entry<K,V>> entries){
+	private FunctionalMap(final FunctionalList<Entry<K,V>> entries){
 		this.entries = entries;
 	}
 	
-	public FunctionalMap<K,V> put(K key, V value){
+	public FunctionalMap<K,V> put(final K key,final V value){
 		
 		return containsKey(key,entries) ?
 				new FunctionalMap<K, V>(FunctionalList.cons(new Entry<K,V>(key,value), removeKey(key,entries))) :
@@ -24,11 +24,11 @@ public class FunctionalMap<K,V> {
 				
 	};
 	
-	public V get(K key){
+	public V get(final K key){
 		return getValueFromEntries(key,entries);
 	}
 	
-	public FunctionalMap<K,V> remove(K key){
+	public FunctionalMap<K,V> remove(final K key){
 		return new FunctionalMap<K,V>(removeKey(key, entries));
 	}
 
@@ -38,11 +38,11 @@ public class FunctionalMap<K,V> {
 	}
 	
 
-	public FunctionalList<V> filterValuesOn(Function<V,Boolean> matcher){
+	public FunctionalList<V> filterValuesOn(final Function<V,Boolean> matcher){
 		return filterValuesOn(matcher,keySet());
 	}
 	
-	private FunctionalList<V> filterValuesOn(Function<V, Boolean> matcher,FunctionalList<K> keySet) {
+	private FunctionalList<V> filterValuesOn(final Function<V, Boolean> matcher,final FunctionalList<K> keySet) {
 		return keySet.isEmpty() ?
 				FunctionalList.<V>nil() :
 					matcher.apply(get(keySet.head())) ?
@@ -50,7 +50,7 @@ public class FunctionalMap<K,V> {
 								filterValuesOn(matcher,keySet.tail());
 	}
 
-	private boolean containsKey(K key, FunctionalList<Entry<K, V>> entries) {
+	private boolean containsKey(final K key, final FunctionalList<Entry<K, V>> entries) {
 		
 		return entries.isEmpty() ?
 				false :
@@ -59,7 +59,7 @@ public class FunctionalMap<K,V> {
 								containsKey(key, entries.tail());
 	}
 
-	private FunctionalList<Entry<K, V>> removeKey(K key, FunctionalList<Entry<K, V>> entries) {
+	private FunctionalList<Entry<K, V>> removeKey(final K key, final FunctionalList<Entry<K, V>> entries) {
 
 		return entries.isEmpty() ?
 				entries :
@@ -68,7 +68,7 @@ public class FunctionalMap<K,V> {
 								FunctionalList.cons(entries.head(), removeKey(key, entries.tail()));
 	}
 
-	private V getValueFromEntries(K key,FunctionalList<Entry<K,V>> entries) {
+	private V getValueFromEntries(final K key,final FunctionalList<Entry<K,V>> entries) {
 		
 		return entries.isEmpty() ?
 				null :
@@ -78,7 +78,7 @@ public class FunctionalMap<K,V> {
 	}
 	
 	
-	private FunctionalList<K> entriesToKeySet(FunctionalList<Entry<K,V>> entries){
+	private FunctionalList<K> entriesToKeySet(final FunctionalList<Entry<K,V>> entries){
 		return entries.isEmpty() ? 
 				FunctionalList.<K>nil() :
 					cons(entries.head().key,entriesToKeySet(entries.tail()));
@@ -90,7 +90,7 @@ public class FunctionalMap<K,V> {
 		final K key;
 		final V value;
 		
-		public Entry(K key, V value){ 
+		public Entry(final K key,final V value){ 
 			this.key = key;
 			this.value = value;
 		}

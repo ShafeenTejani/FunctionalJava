@@ -11,11 +11,11 @@ public class FunctionalMultiMap<K,V>  {
 		map =  new FunctionalMap<K, FunctionalList<V>>();
 	}
 	
-	private FunctionalMultiMap(FunctionalMap<K,FunctionalList<V>> map){ 
+	private FunctionalMultiMap(final FunctionalMap<K,FunctionalList<V>> map){ 
 		this.map = map;
 	}
 	
-	public FunctionalList<V> get(K key){
+	public FunctionalList<V> get(final K key){
 		return map.get(key) == null ?
 				FunctionalList.<V>nil() :
 					map.get(key);
@@ -25,15 +25,15 @@ public class FunctionalMultiMap<K,V>  {
 		return map.keySet();
 	}
 	
-	public FunctionalMultiMap<K,V> put(K key, V value){
+	public FunctionalMultiMap<K,V> put(final K key,final V value){
 		return new FunctionalMultiMap<K,V>(map.put(key, get(key).append(value)));
 	}
 	
-	public FunctionalMultiMap<K,V> remove(K key){
+	public FunctionalMultiMap<K,V> remove(final K key){
 		return new FunctionalMultiMap<K, V>(map.remove(key));
 	}
 	
-	public FunctionalList<FunctionalList<V>> filterValuesOn(Function<FunctionalList<V>,Boolean> matcher){
+	public FunctionalList<FunctionalList<V>> filterValuesOn(final Function<FunctionalList<V>,Boolean> matcher){
 		return map.filterValuesOn(matcher);
 	}
 
