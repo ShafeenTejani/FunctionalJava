@@ -15,12 +15,9 @@ When you’re done with determining whether the hand contains a pair, work your 
 
 Right. Now to make it interesting. Immutability is key. To this end, I’ve come up with a few rules you should follow.
 
-No mutable types. That means no arrays, or even mutable lists such as the lists bundled with every mainstream programming language. Java’s ArrayList, Ruby’s Array, Python’s list… these are all out of bounds.
-
-Don’t write your own mutable types. Really important. The state of your objects should not change during the lifetime of the object. If you’re developing in Java, this means that all fields should be final. readonly in C#. Everyone else, just don’t do it.
-
-Methods must end by returning. Functions. One thing in, one thing out. Emphasis on the out.
-
-Every single statement (apart from the aforementioned return) must be assignment to new variables only. Again, mark them as final if you can.
+- No mutable types. That means no arrays, or even mutable lists such as the lists bundled with every mainstream programming language. Java’s ArrayList, Ruby’s Array, Python’s list… these are all out of bounds.
+- Don’t write your own mutable types. Really important. The state of your objects should not change during the lifetime of the object. If you’re developing in Java, this means that all fields should be final. readonly in C#. Everyone else, just don’t do it.
+- Methods must end by returning. Functions. One thing in, one thing out. Emphasis on the out.
+- Every single statement (apart from the aforementioned return) must be assignment to new variables only. Again, mark them as final if you can.
 
 No conditions or loops. Essentially, no if, for or while blocks. These encourage mutation. The one exception is the ternary condition: condition ? true_case : false_case in Java, C#, Ruby and JavaScript (and I’m sure many more). Python’s equivalent is true_case if condition else false_case, which I always thought was backwards, but that shouldn’t stop you from using it.
